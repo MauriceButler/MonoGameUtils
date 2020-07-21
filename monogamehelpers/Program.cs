@@ -46,7 +46,7 @@ namespace monogamehelpers
             Console.WriteLine("\tmgh create <gameName> [--desktopgl (default)] [--android] [--ios]\n");
             Console.WriteLine("PACKAGE:");
             Console.WriteLine("Package game for each platform:\n");
-            Console.WriteLine("\tmgh package [--desktopgl (default)] [--android] [--ios]\n");
+            Console.WriteLine("\tmgh package [--all (default)] [--windows] [--linux] [--mac] [--android] [--ios]\n");
             Environment.Exit(-1);
         }
 

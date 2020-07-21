@@ -1,7 +1,4 @@
-﻿// Automation of the steps laid out here
-// https://github.com/harry-cpp/MonoGame/blob/newprojdocs/Documentation/setting_up_project/setting_up_project_vscode.md
-
-using System;
+﻿using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using CliWrap;
@@ -22,7 +19,7 @@ namespace monogamehelpers
             switch (verb)
             {
                 case "create":
-                    await Create.CreateSolutionAsync(args);
+                    await Create.CreateSolution(args);
                     break;
                 case "package":
                     await Package.PackageGame(args);

@@ -7,11 +7,14 @@ namespace monogamehelpers
 {
     public static class Create
     {
-        public static async Task CreateSolutionAsync(string[] args)
+        // Automation of the steps laid out here
+        // https://github.com/harry-cpp/MonoGame/blob/newprojdocs/Documentation/setting_up_project/setting_up_project_vscode.md
+
+        public static async Task CreateSolution(string[] args)
         {
             var gameName = args[1];
 
-            await CreateSolutionAsync(gameName);
+            await CreateSolution(gameName);
 
             if (args.Length == 2)
             {
@@ -44,7 +47,7 @@ namespace monogamehelpers
 
         }
 
-        private static async Task CreateSolutionAsync(string gameName)
+        private static async Task CreateSolution(string gameName)
         {
             Directory.CreateDirectory(gameName);
 

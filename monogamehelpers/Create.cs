@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using CliWrap;
 
-namespace monogamehelpers
+namespace MonoGameUtils
 {
     public static class Create
     {

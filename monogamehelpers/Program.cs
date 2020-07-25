@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using CliWrap;
 
-namespace monogamehelpers
+namespace MonoGameUtils
 {
     class Program
     {

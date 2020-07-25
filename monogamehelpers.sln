@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "monogamehelpers", "monogamehelpers\monogamehelpers.csproj", "{C7698ECD-3B87-4655-B51C-8F4E90B4CCE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGameUtils", "monogamehelpers\MonoGameUtils.csproj", "{C7698ECD-3B87-4655-B51C-8F4E90B4CCE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -107,7 +107,7 @@ namespace MonoGameUtils
             };
 
             await Program.RunCommands(commands);
-            // TODO: Create tar.gz with filepermisions intact
+            // TODO: Create tar.gz with file permisions intact
         }
 
         private static async Task PackageMac(string gameName)
@@ -115,6 +115,7 @@ namespace MonoGameUtils
             Console.WriteLine("Package mac");
 
             var dotnetCLI = Cli.Wrap("dotnet").WithWorkingDirectory($"{gameName}.DesktopGL");
+            var projectRoot = Path.Combine(Directory.GetCurrentDirectory(), $"{gameName}.DesktopGL");
             var publish = dotnetCLI.WithArguments("publish -c Release -r osx-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained");
             var result = await (publish | Console.WriteLine).ExecuteBufferedAsync();
 
@@ -123,6 +124,7 @@ namespace MonoGameUtils
             var tempPath = Path.GetFullPath(Path.Combine(publishPath, "..", "temp"));
             var appRootPublishPath = Path.GetFullPath(Path.Combine(publishPath, $"{gameName}.app"));
             var macOSPath = Path.Combine(tempPath, "Contents", "MacOS");
+            var resourcesPath = Path.Combine(tempPath, "Contents", "Resources");
             var executingPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
 
 
@@ -145,10 +147,22 @@ namespace MonoGameUtils
             text = text.Replace("{gameName}", gameName);
             File.WriteAllText(Path.Combine(Path.Combine(tempPath, "Contents"), "Info.plist"), text);
 
-            // Create Content
-            Directory.CreateDirectory(Path.Combine(tempPath, "Contents", "Resources", "Content"));
+            Directory.CreateDirectory(resourcesPath);
 
-            // TODO: convert bmp / ico to icns
+            // Content
+            var contentDirectory = Path.Combine(macOSPath, "Content");
+            if (Directory.Exists(contentDirectory))
+            {
+                Directory.Move(contentDirectory, Path.Combine(resourcesPath, "Content"));
+            }
+
+            // Copy icns
+            Directory.CreateDirectory(resourcesPath);
+            var iconPath = Path.Combine(projectRoot, "Icon.icns");
+            if (File.Exists(iconPath))
+            {
+                File.Copy(iconPath, Path.Combine(resourcesPath, "Icon.icns"));
+            }
 
             // Move to app folder
             Directory.CreateDirectory(publishPath);

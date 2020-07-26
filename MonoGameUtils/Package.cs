@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CliWrap;
+using CliWrap.Buffered;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CliWrap;
-using CliWrap.Buffered;
 
 namespace MonoGameUtils
 {
@@ -20,9 +21,9 @@ namespace MonoGameUtils
             var directoryInfo = new DirectoryInfo(currentDirectory);
             var gameName = directoryInfo.Name;
 
-            var directories = directoryInfo.GetDirectories();
-            var directoryNames = directories.Select((directoryInfo) => directoryInfo.Name);
-            var expectedNames = knownSuffixes.Select((suffix) => $"{gameName}.{suffix}");
+            DirectoryInfo[] directories = directoryInfo.GetDirectories();
+            IEnumerable<string> directoryNames = directories.Select((directoryInfo) => directoryInfo.Name);
+            IEnumerable<string> expectedNames = knownSuffixes.Select((suffix) => $"{gameName}.{suffix}");
             var detectedTargets = directoryNames.Intersect(expectedNames).ToList();
 
             // Bail if not in a known directory
@@ -45,7 +46,7 @@ namespace MonoGameUtils
                 return;
             }
 
-            for (int i = 1; i < args.Length; i++)
+            for (var i = 1; i < args.Length; i++)
             {
                 await PackageTarget(args[i], gameName);
             }
@@ -86,9 +87,9 @@ namespace MonoGameUtils
             // TODO: Package win
             Console.WriteLine("Package win");
 
-            var dotnetCLI = Cli.Wrap("dotnet").WithWorkingDirectory($"{gameName}.DesktopGL");
-            var publish = dotnetCLI.WithArguments("publish -c Release -r win-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained");
-            var commands = new[] {
+            Command dotnetCLI = Cli.Wrap("dotnet").WithWorkingDirectory($"{gameName}.DesktopGL");
+            Command publish = dotnetCLI.WithArguments("publish -c Release -r win-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained");
+            Command[] commands = new[] {
                 publish
             };
 
@@ -100,9 +101,9 @@ namespace MonoGameUtils
         {
             Console.WriteLine("Package Linux");
 
-            var dotnetCLI = Cli.Wrap("dotnet").WithWorkingDirectory($"{gameName}.DesktopGL");
-            var publish = dotnetCLI.WithArguments("publish -c Release -r linux-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained");
-            var commands = new[] {
+            Command dotnetCLI = Cli.Wrap("dotnet").WithWorkingDirectory($"{gameName}.DesktopGL");
+            Command publish = dotnetCLI.WithArguments("publish -c Release -r linux-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained");
+            Command[] commands = new[] {
                 publish
             };
 
@@ -114,10 +115,10 @@ namespace MonoGameUtils
         {
             Console.WriteLine("Package mac");
 
-            var dotnetCLI = Cli.Wrap("dotnet").WithWorkingDirectory($"{gameName}.DesktopGL");
+            Command dotnetCLI = Cli.Wrap("dotnet").WithWorkingDirectory($"{gameName}.DesktopGL");
             var projectRoot = Path.Combine(Directory.GetCurrentDirectory(), $"{gameName}.DesktopGL");
-            var publish = dotnetCLI.WithArguments("publish -c Release -r osx-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained");
-            var result = await (publish | Console.WriteLine).ExecuteBufferedAsync();
+            Command publish = dotnetCLI.WithArguments("publish -c Release -r osx-x64 /p:PublishReadyToRun=false /p:TieredCompilation=false --self-contained");
+            BufferedCommandResult result = await (publish | Console.WriteLine).ExecuteBufferedAsync();
 
             var publishPath = result.StandardOutput.Substring(result.StandardOutput.LastIndexOf(' ')).Trim();
 

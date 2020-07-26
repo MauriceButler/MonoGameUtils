@@ -7,7 +7,18 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>mgu</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
-        
+    <PackageId>MonoGameUtils</PackageId>
+    <Title>MonoGame Utils</Title>
+    <Authors>MauriceButler</Authors>
+    <Description>
+      Some script and helpers for creating, working with, and packing cross platform MonoGame projects.
+
+      Started life as a bunch of hacked together scripts to improve my workflow.
+    </Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ProjectUrl>https://github.com/MauriceButler/MonoGameUtils</ProjectUrl>
+    <RepositoryUrl>https://github.com/MauriceButler/MonoGameUtils</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

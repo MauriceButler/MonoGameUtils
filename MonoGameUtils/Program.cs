@@ -37,16 +37,16 @@ namespace MonoGameUtils
                                 .InformationalVersion
                                 .ToString();
 
-            Console.WriteLine($"MonoGame Helpers v{versionString}");
+            Console.WriteLine($"MonoGame Utils v{versionString}");
             Console.WriteLine("------------------------\n");
             Console.WriteLine("Usage:");
-            Console.WriteLine("mgh <command> [<args>]\n");
+            Console.WriteLine("mgu <command> [<args>]\n");
             Console.WriteLine("CREATE:");
             Console.WriteLine("Create a new solution with a shared project and platform projects:\n");
-            Console.WriteLine("\tmgh create <gameName> [--desktopgl (default)] [--android] [--ios]\n");
+            Console.WriteLine("\tmgu create <gameName> [--desktopgl (default)] [--android] [--ios]\n");
             Console.WriteLine("PACKAGE:");
             Console.WriteLine("Package game for each platform:\n");
-            Console.WriteLine("\tmgh package [--all (default)] [--windows] [--linux] [--mac] [--android] [--ios]\n");
+            Console.WriteLine("\tmgu package [--all (default)] [--windows] [--linux] [--mac] [--android] [--ios]\n");
             Environment.Exit(-1);
         }
 

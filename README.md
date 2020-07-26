@@ -11,7 +11,10 @@ dotnet tool install -g MonoGameUtils
 ```
 
 # Usage:
+
+``` bash
 mgu <command> [<args>]
+```
 
 ## CREATE:
 
